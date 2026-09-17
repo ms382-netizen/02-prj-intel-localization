@@ -1,0 +1,246 @@
+/* ==========================================================
+   Intel: Sustainability Through the Ages
+   ========================================================== */
+
+:root {
+  --intel-blue: #0068B5;
+  --intel-blue-dark: #003C71;
+  --intel-blue-light: #E4F1FB;
+  --copper: #C96A3D;
+  --ink: #1D2B36;
+  --ink-secondary: #51606C;
+  --surface: #FFFFFF;
+  --surface-alt: #F2F5F7;
+  --border: #D9E2E8;
+  --radius: 12px;
+  --max-width: 1180px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: var(--intel-blue);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--intel-blue);
+  outline-offset: 3px;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background: linear-gradient(180deg, var(--intel-blue-dark) 0%, var(--intel-blue) 100%);
+  color: #fff;
+  padding: 56px 40px 72px;
+}
+
+.hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.logo {
+  width: 110px;
+  margin-bottom: 32px;
+  filter: brightness(0) invert(1);
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.12;
+  max-width: 16ch;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 52ch;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+/* ---------- Timeline section ---------- */
+.timeline {
+  padding: 56px 0 24px;
+}
+
+.track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 8px 40px 32px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.track::-webkit-scrollbar {
+  height: 8px;
+}
+
+.track::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 8px;
+}
+
+.track::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  scroll-snap-align: start;
+  flex: 0 0 280px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease;
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 36px -16px rgba(0, 104, 181, 0.35);
+  border-color: var(--intel-blue);
+}
+
+.card-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  filter: saturate(0.95);
+  transition: filter 0.25s ease;
+}
+
+.card:hover .card-img,
+.card:focus-within .card-img {
+  filter: saturate(1.05);
+}
+
+.card h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--copper);
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+
+.card h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+/* Details hidden by default, revealed smoothly on hover / focus */
+.card-detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.3s ease, opacity 0.25s ease;
+}
+
+.card:hover .card-detail,
+.card:focus-within .card-detail {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+.card-detail p {
+  overflow: hidden;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ink-secondary);
+}
+
+.card:focus-within {
+  outline: none;
+}
+
+.scroll-hint {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 40px 60px;
+  font-size: 0.88rem;
+  color: var(--ink-secondary);
+  text-align: center;
+}
+
+/* ---------- Responsive: stack vertically on small screens ---------- */
+@media (max-width: 760px) {
+  .hero {
+    padding: 40px 24px 48px;
+  }
+
+  .logo {
+    width: 88px;
+  }
+
+  .timeline {
+    padding: 40px 0 12px;
+  }
+
+  .track {
+    flex-direction: column;
+    overflow-x: visible;
+    scroll-snap-type: none;
+    padding: 8px 24px 8px;
+    gap: 20px;
+  }
+
+  .card {
+    flex: none;
+  }
+
+  /* On mobile, tap-to-reveal is unreliable, so keep details visible */
+  .card-detail {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 10px;
+  }
+
+  .card:hover,
+  .card:focus-within {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border);
+  }
+
+  .scroll-hint {
+    padding: 0 24px 40px;
+  }
+}
